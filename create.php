@@ -2,15 +2,7 @@
 require 'dossier_inclus/db.php';
 if(isset($_POST['titre_task'],$_POST['description_task'])){
     if (!empty((($_POST['titre_task'])) && ($_POST['description_task']))){
-       $query = "INSERT INTO tache(titre,description) VALUES (:titre,:description)";
-       $statement = $pdo->prepare($query);
-       $statement->execute([
-        'titre' => $_POST['titre_task'],
-        'description'=>$_POST['description_task']
-       ]);
-       header(
-        'Location: /index.php'
-       );
+       header('Location: /index.php');
        exit;
     }
 }

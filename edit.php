@@ -11,13 +11,6 @@ if(isset($_GET['id'])){
         ]);
         $tache = $statement->fetch();
         if(isset($_POST['titre_task'], $_POST['description_task'])){
-            $query = "UPDATE tache set titre = :titre, description = :description WHERE identifiant = :id";
-        $statement = $pdo->prepare($query);
-        $statement->execute([
-            'titre' => $_POST['titre_task'],
-            'description'=>$_POST['description_task'],
-            'id'=>$id
-        ]);
          header(
         'Location: index.php'
        );

@@ -1,9 +1,10 @@
 <?php
-require 'dossier_inclus\db.php';
-$query = "SELECT * FROM tache;";
-$statement = $pdo->prepare($query);
-$statement->execute();
-$taches = $statement->fetchAll();
+require 'vendor/autoload.php';
+use App\Repository\TaskRepository;
+
+$repoTask = new TaskRepository();
+
+dd($repoTask->all());
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,7 +21,7 @@ $taches = $statement->fetchAll();
     <ul>
         <li>Titre : <?= $task['titre']; ?> </li>
         <li>Description : <?= $task['description']; ?> </li>
-        <a href="delete.php?id=<?=$task['identifiant'];?>" onclick="return confirm('Supprimer cette tâche ?');>Supprimer la tache</a></li>
+        <a href="delete.php?id=<?=$task['identifiant'];?>" onclick="return confirm('Supprimer cette tâche ?');">Supprimer la tache</a></li>
         <a href="edit.php?id=<?=$task['identifiant'];?>">Modifier la tache</a></li>
     </ul>
     <?php endforeach; ?>
