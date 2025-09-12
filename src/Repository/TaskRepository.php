@@ -2,6 +2,7 @@
 namespace App\Repository;
 
 use App\Model\Task;
+use DateTime;
 use PDO,PDOException;
 
 class TaskRepository implements InterfaceRepository{
@@ -9,14 +10,14 @@ class TaskRepository implements InterfaceRepository{
 
     public function __construct() {
         try{
-    $this->pdo = new PDO("mysql:host=localhost;dbname=test","root","",[
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_CLASS,
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-]);
-}catch(PDOException $e){
-    return $e->getMessage();
-}
+            $this->pdo = new PDO("mysql:host=localhost;dbname=test","root","",[
+            PDO::ATTR_DEFAULT_FETCH_MODE=> PDO::FETCH_ASSOC,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        ]);
+    }catch(PDOException $e){
+        return $e->getMessage();
     }
+}
 
     public function findById($id)
     {
@@ -42,10 +43,11 @@ class TaskRepository implements InterfaceRepository{
     }
     public function all()
     {
-        $query = "SELECT * FROM tache";
+        $query = "SELECT * FROM tache;";
         $statement = $this->pdo->prepare($query);
-        $statement->setFetchMode(PDO::FETCH_CLASS, Task::class);
-        $statement->fetchAll();
+        $statement->execute();
+        $rows =  $statement->fetchAll();
+        return array_map(fn($rows) => $this->hydrateTask($rows), $rows);
     }
     public function update($id)
     {
@@ -56,6 +58,14 @@ class TaskRepository implements InterfaceRepository{
             'description'=>$_POST['description_task'],
             'id'=>$id
         ]);
+    }
+    public function hydrateTask(array $data): Task {
+        $task = new Task();
+        $task->setIdentifiant((int)$data['identifiant'])
+            ->setTitre($data['titre'])
+            ->setDescription($data['description'])
+            ->setCreatedAt(new DateTime($data['createdAt']));
+        return $task;
     }
 
 }
