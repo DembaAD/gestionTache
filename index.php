@@ -3,8 +3,7 @@ require 'vendor/autoload.php';
 use App\Repository\TaskRepository;
 
 $repoTask = new TaskRepository();
-
-dd($repoTask->all());
+$taches = $repoTask->all();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -19,10 +18,10 @@ dd($repoTask->all());
     <?php if(!empty($taches)) : ?>
     <?php foreach($taches as $task): ?>
     <ul>
-        <li>Titre : <?= $task['titre']; ?> </li>
-        <li>Description : <?= $task['description']; ?> </li>
-        <a href="delete.php?id=<?=$task['identifiant'];?>" onclick="return confirm('Supprimer cette tâche ?');">Supprimer la tache</a></li>
-        <a href="edit.php?id=<?=$task['identifiant'];?>">Modifier la tache</a></li>
+        <li>Titre : <?= $task->getTitre(); ?> </li>
+        <li>Description : <?= $task->getDescription() ?> </li>
+        <a href="delete.php?id=<?=$task->getIdentifiant();?>" onclick="return confirm('Supprimer cette tâche ?');">Supprimer la tache</a></li>
+        <a href="edit.php?id=<?=$task->getIdentifiant();?>">Modifier la tache</a></li>
     </ul>
     <?php endforeach; ?>
     <?php else: ?>
