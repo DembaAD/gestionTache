@@ -1,7 +1,6 @@
 <?php
 namespace App\Model;
 
-use DateError;
 use DateTime;
 
 class Task{
@@ -90,8 +89,13 @@ class Task{
      *
      * @return self
      */
-    public function setCreatedAt(string $createdAt): self {
-        $this->createdAt = new DateTime($createdAt);
+    public function setCreatedAt(DateTime | string $createdAt): self {
+        if(is_string($createdAt)){
+            $this->createdAt = new DateTime($createdAt);
+            
+        }else{
+            $this->createdAt = $createdAt;
+        }
         return $this;
     }
 }
