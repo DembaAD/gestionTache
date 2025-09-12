@@ -10,11 +10,13 @@ $taches = $repoTask->all();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Acceuil</title>
 </head>
 
 <body>
-    <h2>Les taches disponibles</h2>
+    <div class="container mt-5">
+        <h2>Les taches disponibles</h2>
     <?php if(!empty($taches)) : ?>
     <?php foreach($taches as $task): ?>
     <ul>
@@ -28,5 +30,6 @@ $taches = $repoTask->all();
         <p>Votre liste de taches est vide, ajoutez-y une ou deux taches.</p>
     <?php endif ?>
    <a href="create.php">Ajouter une tache ici </a>
+    </div>
 </body>
 </html>

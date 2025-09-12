@@ -1,7 +1,16 @@
 <?php
-require 'dossier_inclus/db.php';
+require 'vendor/autoload.php';
+use App\Model\Task;
+use App\Repository\TaskRepository;
+
 if(isset($_POST['titre_task'],$_POST['description_task'])){
     if (!empty((($_POST['titre_task'])) && ($_POST['description_task']))){
+      $repository = new TaskRepository();
+      $tache = new Task();
+      $tache->setTitre($_POST['titre_task'])
+      ->setCreatedAt('now')
+      ->setDescription($_POST['description_task']);
+      $repository->create($tache);
        header('Location: /index.php');
        exit;
     }
