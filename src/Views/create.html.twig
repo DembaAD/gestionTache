@@ -1,0 +1,12 @@
+{% extends 'layout.twig' %}
+{% block title} Création d\'une tache {% endblock %}
+{% block content %}
+<h2>Formulaire d'ajout d'une tache:</h2>
+ <p>Ajouter une tache ci-apres:</p>
+    <form action="" method="post">
+        <input type="text" name="titre_task" placeholder="Titre de la tache"><br>
+       <textarea rows="4" cols="50" name="description_task"  placeholder="Entrez une tache"> </textarea>
+       <br>
+       <button type="submit">Enregistrer</button>
+    </form>
+{% endblock %}
