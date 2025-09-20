@@ -3,22 +3,25 @@ namespace App\Repository;
 
 use App\Model\Task;
 use DateTime;
+use Dotenv\Dotenv;
 use PDO,PDOException;
 
 class TaskRepository implements InterfaceRepository{
     private PDO $pdo;
 
     public function __construct() {
+        $dotenv = Dotenv::createImmutable(dirname(__DIR__));
+        $dotenv->load();
         try{
-            $this->pdo = new PDO("mysql:host=localhost;dbname=test","root","",[
-            PDO::ATTR_DEFAULT_FETCH_MODE=> PDO::FETCH_ASSOC,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-        ]);
-    }catch(PDOException $e){
-        return $e->getMessage();
+             $this->pdo = new PDO("mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_NAME'],$_ENV['DB_USER'],$_ENV['DB_PASSWORD'],[
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]); 
+        }
+       catch(PDOException $e){
+        throw $e;
     }
 }
-
     public function findById($identifiant): ?Task
     {
         $query = "SELECT * from tache WHERE identifiant = ?";
