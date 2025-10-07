@@ -1,19 +1,29 @@
 <?php
 namespace App\Controller;
 
-abstract class Controller{
-    protected $twig;
-    protected $storage_type;
+use Twig\Loader\FilesystemLoader;
+use Twig\Environment;
+
+abstract class Controller {
+    protected Environment $twig;
+    protected string $storage_type;
 
     public function __construct()
     {
-        $loader     = new \Twig\Loader\FilesystemLoader(dirname(__DIR__), '/Views');
-        $this->twig = new \Twig\Environment($loader, [
-            'cache' => false,
+        // On définit le dossier "Views" comme racine des templates
+        $loader = new FilesystemLoader(dirname(__DIR__) . '\\Views');
+        $this->twig = new Environment($loader, [
+            'cache' => false, // mettre un dossier ici si tu veux activer le cache
         ]);
     }
 
-    public function render(string $name,array $context){
-        echo $this->twig->render($name,$context);
+    /**
+     * Render un template Twig
+     * @param string $name Nom du template relatif au dossier Views
+     * @param array $context Variables à passer au template
+     */
+    public function render(string $name, array $context = [])
+    {
+        echo $this->twig->render($name, $context);
     }
 }

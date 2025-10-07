@@ -6,42 +6,50 @@ use App\Repository\TaskRepository;
 
 class TaskController extends Controller {
 
-    public function index(){
+    public function index() {
         $repoTask = new TaskRepository();
         $taches = $repoTask->all();
-        $this->render('Views/index.html.twig',[
-            'taches'=> $taches,
+
+        // Chemin relatif au dossier Views défini dans le loader
+        $this->render('index.html.twig', [
+            'taches' => $taches,
         ]);
     }
-    public function create(){
+
+    public function create() {
         $tache = new Task();
         $repository = new TaskRepository();
-        if(isset($_POST['titre_task'],$_POST['description_task'])){
-            if (!empty((($_POST['titre_task'])) && ($_POST['description_task']))){
+
+        if (isset($_POST['titre_task'], $_POST['description_task'])) {
+            if (!empty($_POST['titre_task']) && !empty($_POST['description_task'])) {
                 $tache->setTitre($_POST['titre_task'])
-                ->setCreatedAt('now')
-                ->setDescription($_POST['description_task']);
+                      ->setCreatedAt('now')
+                      ->setDescription($_POST['description_task']);
+
                 $repository->create($tache);
-                header('Location: /index.php');
+                header('Location: /');
                 exit;
             }
         }
-        $this->render('/Views/create.html.twig',[
-            'tache'=>$tache,
-            'get'=>$_GET,
-            'post'=>$_POST
+
+        $this->render('create.html.twig', [
+            'tache' => $tache,
+            'get' => $_GET,
+            'post' => $_POST
         ]);
     }
-    public function delete(){
-        $identifiant = $_GET['id'];
-        if(!isset($identifiant)){
-            header('Location: /index.php');
+
+    public function delete() {
+        if (!isset($_GET['id'])) {
+            header('Location: /');
             exit();
         }
+
+        $identifiant = $_GET['id'];
         $repoTask = new TaskRepository();
         $repoTask->delete($identifiant);
-        header('Location: /index.php');
+
+        header('Location: /');
         exit();
     }
-    
 }
