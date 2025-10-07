@@ -10,9 +10,9 @@ class TaskRepository implements InterfaceRepository{
     private PDO $pdo;
 
     public function __construct() {
-        $dotenv = Dotenv::createImmutable(dirname(__DIR__));
-        $dotenv->load();
         try{
+            $dotenv = Dotenv::createImmutable(dirname(__DIR__));
+        $dotenv->load();
              $this->pdo = new PDO("mysql:host=" . $_ENV['DB_HOST'] . ";dbname=" . $_ENV['DB_NAME'],$_ENV['DB_USER'],$_ENV['DB_PASSWORD'],[
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
