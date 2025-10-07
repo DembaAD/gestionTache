@@ -1,0 +1,18 @@
+{% extends 'layout.twig' %}
+{% block title %}Accueil{% endblock %}
+{% block content %}
+      <h2>Les taches disponibles</h2>
+    {% if taches is empty %}
+       <p>Votre liste de taches est vide, ajoutez-y une ou deux taches.</p>
+    {% else %}   
+   {% for tache in taches %}
+    <ul>
+        <li>Titre : {{tache.titre}} </li>
+        <li>Description : {{tache.description }} </li>
+        <a href="delete.php?id={{tache.identifiant}}" onclick="return confirm('Supprimer cette tâche ?');">Supprimer la tache</a></li>
+        <a href="edit.php?id={{tache.identifiant}}">Modifier la tache</a></li>
+    </ul>
+    {% endfor %}
+    <a href="/create">Ajouter une tache ici </a>
+    {% endif %}
+{% endblock %}
