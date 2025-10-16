@@ -9,8 +9,8 @@
     <ul>
         <li>Titre : {{tache.titre}} </li>
         <li>Description : {{tache.description }} </li>
-        <a href="delete/?id={{tache.identifiant}}" onclick="return confirm('Supprimer cette tâche ?');">Supprimer la tache</a></li>
-        <a href="edit/?id={{tache.identifiant}}">Modifier la tache</a></li>
+        <a href="delete?id={{tache.identifiant}}" onclick="return confirm('Supprimer cette tâche ?');">Supprimer la tache</a></li>
+        <a href="edit?id={{tache.identifiant}}">Modifier la tache</a></li>
     </ul>
     {% endfor %}
     <a href="/create">Ajouter une tache ici </a>
