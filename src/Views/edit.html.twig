@@ -1,0 +1,15 @@
+{% extends 'layout.twig' %}
+
+{% block title %} Edition d'une tache {% endblock %}
+{% block content %}
+<div class="container mt-5">
+<h2>Formulaire d'ajout d'une tache:</h2>
+ <p>Modifier la tache</p>
+    <form method="post" class="form-group">
+        <input type="text" class="form-control" name="titre_task" placeholder="Titre de la tache" value="{{ tache.Titre }}"><br>
+       <textarea rows="4" class="form-control"  cols="50" name="description_task"  placeholder="Entrez une tache"> {{ tache.Description }}
+       </textarea>
+           <button class="btn btn-primary mt-3" type="submit">Enregistrer</button>
+    </form>
+</div>
+{% endblock %}
