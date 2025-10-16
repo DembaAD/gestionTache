@@ -48,8 +48,29 @@ class TaskController extends Controller {
         $identifiant = $_GET['id'];
         $repoTask = new TaskRepository();
         $repoTask->delete($identifiant);
-
         header('Location: /');
         exit();
     }
+
+    public function edit(){
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+        if(!empty($_GET['id'])){
+            $repository = new TaskRepository();
+            $taskToEdit = $repository->findById($id);
+            if(isset($_POST['titre_task'], $_POST['description_task'])){
+                $taskToEdit->setTitre($_POST['titre_task'])
+                        ->setDescription($_POST['description_task']);
+                $repository->update($id, $taskToEdit);
+         header('Location: /');
+         exit;
+        }
+    }
+ $this->render('edit.html.twig', [
+            'tache' => $taskToEdit,
+            'get' => $_GET,
+            'post' => $_POST
+        ]);
+}
+}
 }

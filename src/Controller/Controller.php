@@ -10,18 +10,13 @@ abstract class Controller {
 
     public function __construct()
     {
-        // On définit le dossier "Views" comme racine des templates
+      
         $loader = new FilesystemLoader(dirname(__DIR__) . '\\Views');
         $this->twig = new Environment($loader, [
-            'cache' => false, // mettre un dossier ici si tu veux activer le cache
+            'cache' => false, 
         ]);
     }
 
-    /**
-     * Render un template Twig
-     * @param string $name Nom du template relatif au dossier Views
-     * @param array $context Variables à passer au template
-     */
     public function render(string $name, array $context = [])
     {
         echo $this->twig->render($name, $context);
