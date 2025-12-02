@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TaskController!{% endblock %}
+
+{% block body %}
+
+    <a class="btn btn-primary mb-3" href="{{ path('task.create') }}">Créer une nouvelle tâche</a>
+
+    {% if tasks is empty %}
+        <p>Il n'y a pas de tâches pour l'instant.</p>
+    {% else %}
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom de la tâche</th>
+                    <th>Créée le</th>
+                    <th>Est exécutée</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.createdAt|date("d/m/Y H:i") }}</td>
+                    <td>
+                        <input type="checkbox" disabled {% if task.isDone %}checked{% endif %}>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('task.update', { id: task.id }) }}">
+                            Éditer
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="{{ path('task.delete', { id: task.id }) }}">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+{% endblock %}
